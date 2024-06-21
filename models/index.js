@@ -18,6 +18,7 @@ Blog.hasMany(Comment, {
   foreignKey: "",
   onDelete: "CASCADE",
 });
+
 // a comment belongs to the blog
 Comment.belongsTo(Blog, {
   foreignKey: "",
