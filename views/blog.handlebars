@@ -1,0 +1,11 @@
+<div class="blog-card"> {{! -- make this the body 'card' that holds the blog }}          
+    <div class="blog-card-header"> 
+        <h2>{{title}} by {{author}}</h2>
+        {{#if is_nsfw}}
+            <h4>WARNING: NSFW!!</h4>
+        {{/if}}
+    </div>
+    <div class="blog-body">
+        <p>{{content}}</p>
+    </div>
+</div>

@@ -4,9 +4,9 @@ const Blog = require("./Blog");
 const Comment = require("./Comment");
 
 // A user will have many blogs
-// Blogs belong to one user or many users?
 User.hasMany(Blog, {
   foreignKey: "user_id",
+  onDelete: "CASCADE",
 });
 
 Blog.belongsTo(User, {
@@ -16,6 +16,7 @@ Blog.belongsTo(User, {
 // a blog can have many comments
 Blog.hasMany(Comment, {
   foreignKey: "",
+  onDelete: "CASCADE",
 });
 // a comment belongs to the blog
 Comment.belongsTo(Blog, {

@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Tech Blog</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div>
+        <div>
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/Dashboard">Dashboard</a></li>
+            {{#if loggedIn}}
+            <li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
+            {{else}}
+            <li class="nav-item"><a class="nav-link" href="/">Login</a></li>
+            {{/if}}
+        </div>
+      </div>
+      {{!-- Write double if statement for the change of title in title div, otherwise else works for this --}}
+      {{#if isHomePage}}
+      <h1>Tech Blog</h1>
+      {{else}}
+      <h1>Dashboard</h1>
+    </nav>
+  </header>
+
+  <main>
+    {{{body}}}
+  </main>
+
+  {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+</body>
+
+</html>
