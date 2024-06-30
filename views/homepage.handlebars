@@ -1,0 +1,13 @@
+<div class="flex flex-col flex-nowrap justify-center items-center w-100 mt-10"> 
+    {{#each blogs as |blog|}}
+    <div class="card-style container m-3">
+        <div class="dark-header flex justify-between items-center h-12">
+            <h3 class="dark-header mx-3">{{title}}</h3>
+            <h5 class="dark-header mx-3">Posted by {{user_id.name}} on {{creation_date}}</h5>
+        </div>
+        <div class="blog-content flex m-4">
+            <p>{{content}}</p>
+        </div>
+    </div>
+    {{/each}}
+</div>

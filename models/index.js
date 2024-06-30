@@ -10,28 +10,28 @@ User.hasMany(Blog, {
 });
 
 Blog.belongsTo(User, {
-  foreignKey: "// write here when done",
+  foreignKey: "user_id",
 });
 
 // a blog can have many comments
 Blog.hasMany(Comment, {
-  foreignKey: "",
+  foreignKey: "blog_id",
   onDelete: "CASCADE",
 });
 
 // a comment belongs to the blog
 Comment.belongsTo(Blog, {
-  foreignKey: "",
+  foreignKey: "blog_id",
 });
 
 // A user will have many comments
 User.hasMany(Comment, {
-  foreignKey: "",
+  foreignKey: "user_id",
 });
 
 // comments belong to many users?
 Comment.belongsTo(User, {
-  foreignKey: "",
+  foreignKey: "user_id",
 });
 
 module.exports = { User, Blog, Comment };

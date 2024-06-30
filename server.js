@@ -5,10 +5,13 @@ const session = require("express-session");
 const exphbs = require("express-handlebars");
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
+const withAuth = require("./utils/auth");
 
 // get express methods and connect to certain PORT with server
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 // set up the sessions and cookies
 const sess = {
@@ -21,14 +24,17 @@ const sess = {
     sameSite: "strict", // only allow cookie transfer if server is same as current URL
   },
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
 };
 
 // Calling session constructor middleware
 app.use(session(sess));
 
 // Create the Handlebars.js engine object with custom helper functions
-// const hbs = exphbs.create({ helpers });  likely not needed for this challenge
+const hbs = exphbs.create({ withAuth }); // likely not needed for this challenge
 
 // Inform Express.js which template engine we're using
 app.engine("handlebars", hbs.engine);
@@ -44,5 +50,7 @@ app.use(routes);
 
 // using sequelize for server listener
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log("Now listening"));
+  app.listen(PORT, () =>
+    console.log("Now listening at http://localhost:3001/")
+  );
 });

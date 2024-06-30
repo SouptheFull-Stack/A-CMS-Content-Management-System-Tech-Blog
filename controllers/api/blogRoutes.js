@@ -19,6 +19,7 @@ router.get("/", async (req, res) => {
     const allBlogs = await Blog.findAll({
       include: [{ model: Comment }],
     });
+    const blog = allBlogs.get({ plain: true });
     res.status(200).json(allBlogs);
   } catch (err) {
     res.status(400).json(err);

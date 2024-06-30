@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const { Comment } = require("../../models");
 
 // consider the url paths for this, as the comments will be linked to the blog
@@ -15,7 +14,7 @@ router.post("/", async (req, res) => {
 });
 
 // update a comment the USER has made
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     // enter code here
   } catch (err) {
@@ -31,3 +30,5 @@ router.delete("/:id", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+module.exports = router;

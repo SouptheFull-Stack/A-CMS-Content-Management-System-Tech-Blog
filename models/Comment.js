@@ -12,11 +12,11 @@ Comment.init(
       autoIncrement: true,
     },
     // NEED TO FIX THIS
-    user_name: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "user",
-        key: "username",
+        key: "id",
       },
     },
     content: {
@@ -26,7 +26,7 @@ Comment.init(
     // will display how long it's been since the comment was posted (as done in Facebook)
     time_since: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
