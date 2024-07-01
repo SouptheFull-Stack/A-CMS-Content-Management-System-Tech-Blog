@@ -6,6 +6,7 @@ const exphbs = require("express-handlebars");
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 const withAuth = require("./utils/auth");
+const helpers = require("./utils/helpers");
 
 // get express methods and connect to certain PORT with server
 const app = express();
@@ -34,7 +35,7 @@ const sess = {
 app.use(session(sess));
 
 // Create the Handlebars.js engine object with custom helper functions
-const hbs = exphbs.create({ withAuth }); // likely not needed for this challenge
+const hbs = exphbs.create({ withAuth, helpers }); // likely not needed for this challenge
 
 // Inform Express.js which template engine we're using
 app.engine("handlebars", hbs.engine);
