@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
       blogs,
       loggedIn: req.session.logged_in,
       userId: req.session.user_id,
-      isHomePage: true,
+      isNotDashboard: true,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -34,10 +34,12 @@ router.get("/login", async (req, res) => {
     res.redirect("/dashboard");
     return; // stopping the function execution, so it doesn't render login, same as if else in this case
   }
-  res.render("login");
+  res.render("login", {
+    isNotDashboard: true,
+  });
 });
 
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
   const blogData = await Blog.findAll({
     include: [{ model: Blog }, { model: Comment }],
     where: { user_id: req.session.user_id },
@@ -54,6 +56,7 @@ router.get("/dashboard", async (req, res) => {
     loggedIn: req.session.logged_in,
     userId: req.session.user_id,
     userName: loggedInUser.name,
+    isNotDashboard: false,
   });
 });
 
