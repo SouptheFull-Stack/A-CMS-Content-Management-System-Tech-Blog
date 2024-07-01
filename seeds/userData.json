@@ -1,17 +1,14 @@
 [
     {
         "username": "LilPizza",
-        "email": "mitra@mitra.com",
         "password": "password1"
     },
     {
         "username": "PoopyFace",
-        "email": "poopy@gmail.com",
-        "password": "password1"
+        "password": "password2"
     },
     {
         "username": "Jubby",
-        "email": "markzuccy99@gmail.com",
-        "password": "password1"
+        "password": "password3"
     }
 ]
