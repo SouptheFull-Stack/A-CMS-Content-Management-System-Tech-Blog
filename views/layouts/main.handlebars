@@ -8,17 +8,17 @@
   <title>Tech Blog</title>
 </head>
 
-<body>
+<body class="light-background">
   <header>
-    <nav class="dark-header h-40 pt-5">
+    <nav class="dark-background h-40 pt-5">
       {{!-- <div class="container w-28 flex flex-col"> --}}
         <ul class="flex w-96 flex-row flex-wrap flex-initial justify-start">
-          <li class="flex mx-5"><a href="/">Home</a></li>
-          <li class="flex mx-5"><a href="/Dashboard">Dashboard</a></li>
+          <li class="flex mx-5 list-none light-color"><a class="text-2xl" href="/">Home</a></li>
+          <li class="flex mx-5 list-none light-color"><a class="text-2xl" href="/dashboard">Dashboard</a></li>
           {{#if loggedIn}}
-          <li class="flex mx-5" id="logout"><a href="/">Logout</a></li>
+          <li class="flex mx-5 list-none light-color" id="logout"><a class="text-2xl" href="/">Logout</a></li>
           {{else}}
-          <li class="flex mx-5"><a href="/Login">Login</a></li>
+          <li class="flex mx-5 list-none light-color"><a class="text-2xl" href="/Login">Login</a></li>
           {{/if}}
         </ul>
         {{!-- </div> --}}
@@ -27,17 +27,17 @@
         {{!-- h-12 mt-8 h-10 ml-10 w-52 --}}
         <div class="flex ml-10 h-24 w-72 justify-center items-center">
          {{!-- h-12 w-52 mt-8 ml-8 w-52 h-10 --}}
-          <h1 class="title-head h-auto w-72 text-center">The Tech Blog</h1>
+          <h1 class="title-head h-auto w-72 text-center dark-color font-bold light-background">The Tech Blog</h1>
         </div>
         {{else}}
         <div class="flex ml-10 h-24 w-72 justify-center items-center">
-          <h1 class="title-head h-auto w-72 text-center">Dashboard</h1>
+          <h1 class="title-head h-auto w-72 text-center dark-color font-bold light-background">Dashboard</h1>
         </div>
         {{/if}}
     </nav>
   </header>
-
-  <main>
+{{!-- class="flex flex-col justify-center" --}}
+  <main class="flex flex-col justify-center">
     {{{body}}}
   </main>
   {{#if loggedIn}}

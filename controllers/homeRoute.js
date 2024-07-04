@@ -4,7 +4,7 @@ const { User, Blog, Comment } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const blogData = await Blog.findAll({
+    const blogDataAll = await Blog.findAll({
       include: [
         {
           model: User,
@@ -16,12 +16,12 @@ router.get("/", async (req, res) => {
       ],
     });
 
-    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    const blogs = blogDataAll.map((blog) => blog.get({ plain: true }));
 
     res.render("homepage", {
       blogs,
       loggedIn: req.session.logged_in,
-      userId: req.session.user_id,
+      user_id: req.session.user_id,
       isNotDashboard: true,
     });
   } catch (err) {
@@ -30,34 +30,76 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/login", async (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return; // stopping the function execution, so it doesn't render login, same as if else in this case
+  try {
+    if (req.session.logged_in) {
+      res.redirect("/");
+      return; // stopping the function execution, so it doesn't render login, same as if else in this case
+    }
+    res.render("login-signup", {
+      // formPartials,
+      isNotDashboard: true,
+      createBlog: false,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
-  res.render("login", {
-    isNotDashboard: true,
-  });
 });
 
 router.get("/dashboard", withAuth, async (req, res) => {
-  const blogData = await Blog.findAll({
-    include: [{ model: Blog }, { model: Comment }],
-    where: { user_id: req.session.user_id },
-  });
+  try {
+    const blogDataUserAll = await Blog.findAll({
+      include: [{ model: User, attributes: ["username"] }],
+      where: { user_id: req.session.user_id },
+    });
 
-  const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    const blogs = blogDataUserAll.map((blog) => blog.get({ plain: true }));
 
-  const loggedInUser = await User.findByPk(req.session.user_id, {
-    attributes: ["name"],
-  });
+    res.render("dashboard", {
+      blogs,
+      loggedIn: req.session.logged_in,
+      user_id: req.session.user_id,
+      isNotDashboard: false,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
-  res.render("blogs", {
-    blogs,
-    loggedIn: req.session.logged_in,
-    userId: req.session.user_id,
-    userName: loggedInUser.name,
-    isNotDashboard: false,
-  });
+router.get("/dashboard/:name", withAuth, async (req, res) => {
+  try {
+    const blogDataUserSingle = await Blog.findOne({
+      include: [{ model: User, attributes: ["username"] }],
+      where: { user_id: req.session.user_id },
+    });
+
+    const blogOne = blogDataUserSingle.get({ plain: true });
+
+    res.render("dashboard-single-blog", {
+      blogOne,
+      loggedIn: req.session.logged_in,
+      user_id: req.session.user_id,
+      isNotDashboard: false,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.get("/createBlog", withAuth, async (req, res) => {
+  try {
+    res.render("createBlog", {
+      loggedIn: req.session.logged_in,
+      user_id: req.session.user_id,
+      isNotDashboard: true,
+      createBlog: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

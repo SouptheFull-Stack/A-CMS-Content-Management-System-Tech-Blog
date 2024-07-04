@@ -6,7 +6,11 @@ const { Blog, Comment } = require("../../models");
 // create a new blog post
 router.post("/", async (req, res) => {
   try {
-    const newBlog = await Blog.create(req.body);
+    const newBlog = await Blog.create({
+      title: req.body.title,
+      content: req.body.content,
+      user_id: req.session.user_id,
+    });
     res.status(200).json(newBlog);
   } catch (err) {
     res.status(400).json(err);
@@ -20,6 +24,18 @@ router.get("/", async (req, res) => {
       include: [{ model: Comment }],
     });
     const blog = allBlogs.get({ plain: true });
+    res.status(200).json(allBlogs);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.get("/:name", async (req, res) => {
+  try {
+    const nameBlog = await Blog.findOne({
+      where: { name: req.params.name },
+      include: [{ model: Comment }],
+    });
     res.status(200).json(allBlogs);
   } catch (err) {
     res.status(400).json(err);
