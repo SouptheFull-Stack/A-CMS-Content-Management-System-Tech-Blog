@@ -1,59 +1,59 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+const bcrypt = require("bcrypt");
 
 // create a new user
 router.post("/", async (req, res) => {
   try {
-    const createUser = await User.create({
-      name: req.body.username,
-      email: req.body.email,
+    const dbUserData = await User.create({
+      username: req.body.username,
       password: req.body.password,
     });
 
     req.session.save(() => {
       req.session.logged_in = true;
-      req.session.user_id = createUser.id;
-      res.status(200).json(createUser);
+      req.session.user_id = dbUserData.id;
+      res.status(200).json(dbUserData);
     });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 
 router.post("/login", async (req, res) => {
   try {
-    const userLogin = await User.findOne({
+    const dbUserData = await User.findOne({
       where: {
-        email: req.body.email,
+        username: req.body.username,
       },
     });
 
-    if (!userLogin) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again." });
+    if (!dbUserData) {
+      res.status(400).json({ message: "Login failed. Please try again!" });
       return;
     }
 
-    const validPassword = await userLogin.checkPassword(req.body.password);
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      dbUserData.password
+    );
 
     if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again." });
+      res.status(400).json({ message: "Login failed. Please try again!" });
       return;
     }
 
     req.session.save(() => {
-      req.session.user_id = userLogin.id;
       req.session.logged_in = true;
+      req.session.user_id = dbUserData.id;
 
       res
         .status(200)
-        .json({ user: userLogin, message: "You are now logged in!" });
+        .json({ user: dbUserData, message: "You are now logged in!" });
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -65,18 +65,6 @@ router.post("/logout", (req, res) => {
     });
   } else {
     res.status(404).end();
-  }
-});
-
-// retrieve users to test
-router.get("/", async (req, res) => {
-  try {
-    const allUsers = await User.findAll();
-    // return as a json object
-    res.status(200).json(allUsers);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
   }
 });
 
