@@ -2,59 +2,36 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-li {
-  list-style-type: none;
-}
-
 .card-style {
   border: 3px solid #2b0307;
 }
 
-body,
-h3,
-h5,
-.blog-content {
-  background-color: #c7e7b9;
-  /* color: #c7e7b9; */
+.dark-color {
+  color: #2b0307;
 }
 
-nav a,
-h4 {
-  color: #c7e7b9 !important;
-  font-size: 1.5em;
-}
-
-h6,
-button,
-h3 {
-  color: #c7e7b9 !important;
-}
-
-.dark-header {
+.dark-background {
   background-color: #2b0307;
 }
 
-.title-head {
+.light-color {
+  color: #c7e7b9;
+}
+
+.light-background {
   background-color: #c7e7b9;
+}
+
+.title-head {
   border-radius: 10px;
-  /* font-weight: 700 !important; */
   font-size: 2.5em !important;
-  /* #c7e7b9a2  darker one #c7e7b970*/
   box-shadow: 6px 6px 0px #c7e7b9a2;
   border-radius: 10px;
 }
 
-p,
-label,
-h1,
-input [type="text"],
-input[type="password"],
-form a {
-  color: #2b0307;
-}
-
 label {
   margin: 0.5em;
+  font-weight: 700;
 }
 
 input,
@@ -63,8 +40,11 @@ button {
   border-radius: 8px;
 }
 
-form a,
-label,
-.title-head {
-  font-weight: 700;
+.content-input {
+  vertical-align: top;
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 100px; /* Set a minimum height */
+  /* Add padding for better spacing */
+  font-size: 14px; /* Set font size */
+  line-height: 1.5; /* Set line height for better readability */
 }
