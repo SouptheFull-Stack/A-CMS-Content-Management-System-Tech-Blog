@@ -39,12 +39,3 @@ button {
   height: 2.5em;
   border-radius: 8px;
 }
-
-.content-input {
-  vertical-align: top;
-  resize: vertical; /* Allow vertical resizing */
-  min-height: 100px; /* Set a minimum height */
-  /* Add padding for better spacing */
-  font-size: 14px; /* Set font size */
-  line-height: 1.5; /* Set line height for better readability */
-}
