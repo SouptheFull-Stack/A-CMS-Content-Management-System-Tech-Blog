@@ -1,5 +1,6 @@
-<div class="flex flex-col flex-nowrap justify-center items-center w-full mt-10">    
+<div class="flex flex-col flex-nowrap justify-center items-center w-full mt-10">
     <div class="card-style container m-3">
+        <a href="/editBlog">
         <div class="dark-background flex justify-between items-center h-12">
             <h3 class="dark-background mx-3 text-lg light-color">{{blogOne.title}}</h3>
             <h5 class="dark-background mx-3 light-color text-sm">Posted on {{format_date blogOne.creation_date}}</h5>
@@ -7,10 +8,13 @@
         <div class="blog-content flex m-4">
             <p>{{blogOne.content}}</p>
         </div>
+        </a>
     </div>
     {{#if loggedIn}}
-    <a href="/createBlog"><button class="dark-background light-color w-44 text-2xl self-center mb-5" id="create-blog-btn">+ New Post</button></a>
+    <a href="/createComment"><button class="dark-background light-color w-52 text-2xl self-center mb-5" id="create-blog-btn">Leave a comment!</button></a>
     {{else}}
-    <a href="/login"><button class="dark-background light-color w-44 text-2xl self-center mb-5" id="create-blog-btn">+ New Post</button></a>
+    <a href="/login"><button class="dark-background light-color w-52 text-2xl self-center mb-5" id="create-blog-btn">Leave a comment!</button></a>
     {{/if}}
 </div>
+
+
