@@ -24,28 +24,17 @@ router.get("/", async (req, res) => {
       include: [{ model: Comment }],
     });
     const blog = allBlogs.get({ plain: true });
+
     res.status(200).json(allBlogs);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.get("/:name", async (req, res) => {
-  try {
-    const nameBlog = await Blog.findOne({
-      where: { name: req.params.name },
-      include: [{ model: Comment }],
-    });
-    res.status(200).json(allBlogs);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-
-// get blog by id ?? consider not doing this one
+// get blog by id
 router.get("/:id", async (req, res) => {
   try {
-    const idBlog = await Blog.findByPk({
+    const idBlog = await Blog.findByPk(req.params.id, {
       include: [{ model: Comment }],
     });
     res.status(200).json(idBlog);
