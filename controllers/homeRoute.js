@@ -67,7 +67,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-router.get("/dashboard/:name", withAuth, async (req, res) => {
+router.get("/dashboard/:id", withAuth, async (req, res) => {
   try {
     const blogDataUserSingle = await Blog.findOne({
       include: [{ model: User, attributes: ["username"] }],
@@ -76,7 +76,7 @@ router.get("/dashboard/:name", withAuth, async (req, res) => {
 
     const blogOne = blogDataUserSingle.get({ plain: true });
 
-    res.render("dashboard-single-blog", {
+    res.render("editBlog", {
       blogOne,
       loggedIn: req.session.logged_in,
       user_id: req.session.user_id,
@@ -93,7 +93,7 @@ router.get("/createBlog", withAuth, async (req, res) => {
     res.render("createBlog", {
       loggedIn: req.session.logged_in,
       user_id: req.session.user_id,
-      isNotDashboard: true,
+      isNotDashboard: false,
       createBlog: true,
     });
   } catch (err) {
@@ -101,5 +101,18 @@ router.get("/createBlog", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// router.get("/dashboard/edit", withAuth, async (req, res) => {
+//   try {
+//     res.render("editBlog", {
+//       loggedIn: req.session.logged_in,
+//       user_id: req.session.user_id,
+//       isNotDashboard: false,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;
