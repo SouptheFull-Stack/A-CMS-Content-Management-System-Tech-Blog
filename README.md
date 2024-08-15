@@ -7,7 +7,7 @@ There is no installation required, as this site is deployed for your use.
 
 ## Usage
 The website link for you to try:
-https://tech-blog-g73o.onrender.com/
+[https://tech-blog-g73o.onrender.com/](https://mitra-ahmadi-pirshahid.netlify.app/)
 
 ## Licenses
 MIT License
